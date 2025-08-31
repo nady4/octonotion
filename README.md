@@ -1,6 +1,6 @@
-# octonotion
+# 🐙 octonotion
 
-🐙 Lightweight integration between GitHub and Notion. Each issue opened in a repository results in an organized task in Notion.
+Lightweight integration between GitHub and Notion. Each issue opened in a repository results in an organized task in Notion.
 
 This project is a **Node.js bot** that connects the **GitHub API** with the **Notion API**.  
 Whenever an **issue is opened in GitHub**, the bot automatically creates a **task in Notion**,  
