@@ -75,12 +75,12 @@ where GitHub serves as a public collaboration platform and Notion as an internal
 1. Create an internal integration at [notion.so/my-integrations](https://www.notion.so/my-integrations) and copy its **Internal Token** into `NOTION_TOKEN`.
 2. Create a new database (e.g. `Octonotion`) and add these properties — names and types must match exactly:
 
-   | Property | Type        | Notes                        |
-   | -------- | ----------- | ---------------------------- |
-   | `Name`   | Title       | Holds the issue title        |
-   | `Status` | Select      | Add a `Not started` option   |
-   | `Repo`   | URL         | Holds the repository URL     |
-   | `Issue`  | Rich text   | Holds the issue URL          |
+   | Property | Type        | Notes                                       |
+   | -------- | ----------- | ------------------------------------------- |
+   | `Name`   | Title       | Holds the issue title                       |
+   | `Status` | Status      | Workflow groups: `Not started`, `In progress`, `Done` |
+   | `Repo`   | URL         | Holds the repository URL                    |
+   | `Issue`  | Rich text   | Holds the issue URL                         |
 
 3. Open the database, click `•••` → **Connections** → add your integration so it can read/write.
 4. Copy the database ID from the URL (`notion.so/<workspace>/<DATABASE_ID>?v=...`) into `NOTION_DB_ID`.
