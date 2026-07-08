@@ -14,9 +14,9 @@ where GitHub serves as a public collaboration platform and Notion as an internal
 ## 🚀 Features
 
 - Escapes to `issues.opened` events from a GitHub Webhook.
-- Creates tasks in a Notion database (`Projects`).
+- Creates tasks in a Notion database (`Tasks`).
 - Automatically links the issue to the corresponding repository.
-- Allows configuring properties such as `Name`, `Status`, `Repo` and `Tasks`.
+- Allows configuring properties such as `Name`, `Status`, `Repo` and `Issue`.
 
 <br>
 
@@ -40,7 +40,13 @@ where GitHub serves as a public collaboration platform and Notion as an internal
    ```bash
    NOTION_TOKEN=your_secret_token
    NOTION_DB_ID=your_projects_db_id
-   GITHUB_SECRET=webhook_key
+   GITHUB_SECRET=your_webhook_secret
+   ```
+
+   Generate a strong secret with:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
 
 4. Run the server:
@@ -54,9 +60,37 @@ where GitHub serves as a public collaboration platform and Notion as an internal
 
 1. Go to `Settings > Webhooks` in your repository.
 2. Create a Webhook with:
-   - **Payload URL**: `http://your-server/github-webhook`
+   - **Payload URL**: `https://your-domain/github-webhook` (see [Exposing the bot](#-exposing-the-bot) below)
    - **Content type**: `application/json`
-   - **Events**: select `issues`
+   - **Secret**: the same value you put in `GITHUB_SECRET`
+   - **SSL verification**: Enabled (only available for `https://` URLs)
+   - **Events**: *Let me select individual events* → tick **Issues** only
+
+> Don't pick *"Send me everything"* — the bot only handles `issues.opened` and will silently ignore the rest.
+
+<br>
+
+## 🌐 Exposing the bot
+
+GitHub can't reach `localhost`, so the Payload URL has to be publicly reachable on HTTPS.
+
+**Local development** — use a tunnel:
+
+```bash
+ngrok http 3000
+```
+
+Use the `https://…ngrok…` URL it prints as your Payload URL.
+
+**Production** — put the bot behind a reverse proxy that terminates TLS and forwards to `127.0.0.1:3000`. Minimal Caddyfile:
+
+```caddy
+your-domain.com {
+    reverse_proxy 127.0.0.1:3000
+}
+```
+
+Then your Payload URL is `https://your-domain.com/github-webhook` and SSL verification stays enabled.
 
 <br>
 
