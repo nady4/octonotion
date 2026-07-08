@@ -13,8 +13,8 @@ where GitHub serves as a public collaboration platform and Notion as an internal
 
 ## 🚀 Features
 
-- Escapes to `issues.opened` events from a GitHub Webhook.
-- Creates tasks in a Notion database (`Tasks`).
+- Listens to `issues.opened` events from a GitHub Webhook.
+- Creates tasks in a Notion database (e.g. `Octonotion`).
 - Automatically links the issue to the corresponding repository.
 - Allows configuring properties such as `Name`, `Status`, `Repo` and `Issue`.
 
